@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "DSBaseViewController"
-  s.version      = "1.0.0"
+  s.version      = "1.1.0"
   s.summary      = "A serial of UIViewController classes used as super class."
 
   s.description  = <<-DESC
@@ -30,14 +30,9 @@ The 'DS' prefix is short for Data State, also stand for my team name with Dragon
   s.source       = { :git => "https://github.com/xingheng/DSBaseViewController.git", :tag => s.version.to_s }
 
   s.source_files  = "DSBaseViewController", "DSBaseViewController/**/*.{h,m}"
-
   s.public_header_files = "DSBaseViewController/**/*.h"
 
-  # s.resource  = "icon.png"
-  # s.resources = "Resources/*.png"
-
   s.frameworks = "UIKit"
-
   s.requires_arc = true
 
 end
