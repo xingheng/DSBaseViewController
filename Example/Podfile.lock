@@ -1,0 +1,26 @@
+PODS:
+  - CocoaLumberjack (3.0.0):
+    - CocoaLumberjack/Default (= 3.0.0)
+    - CocoaLumberjack/Extensions (= 3.0.0)
+  - CocoaLumberjack/Core (3.0.0)
+  - CocoaLumberjack/Default (3.0.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (3.0.0):
+    - CocoaLumberjack/Default
+  - DSBaseViewController (1.0.0)
+
+DEPENDENCIES:
+  - CocoaLumberjack
+  - DSBaseViewController (from `../`)
+
+EXTERNAL SOURCES:
+  DSBaseViewController:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CocoaLumberjack: c823149bccc5519a9447aeb433be7b1212a7d6a5
+  DSBaseViewController: 0eac575f370838052c37d5b473839d3ec0b661ba
+
+PODFILE CHECKSUM: 67d6202f47a06c9f74553941d56b9bf68e1c8201
+
+COCOAPODS: 1.1.1

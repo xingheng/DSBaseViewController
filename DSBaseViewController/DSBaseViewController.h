@@ -1,5 +1,5 @@
 //
-//  BaseViewController.h
+//  DSBaseViewController.h
 //  youyue
 //
 //  Created by WeiHan on 12/3/15.
@@ -28,9 +28,14 @@
         return self;                                                                             \
     }
 
+typedef NSString * DSBaseViewControllerOptionKeyType;
+
+FOUNDATION_EXPORT DSBaseViewControllerOptionKeyType const DSBaseViewControllerOptionBackgroundColor;
+FOUNDATION_EXPORT DSBaseViewControllerOptionKeyType const DSBaseViewControllerOptionBackBarButtonImage;
+
 typedef void (^AppearAnimationBlock)(BOOL);
 
-@class BaseViewController;
+@class DSBaseViewController;
 
 
 #pragma mark - BuildViewDelegate
@@ -44,7 +49,7 @@ typedef void (^AppearAnimationBlock)(BOOL);
  *    @param containerView  view controller's root view (self.view)
  *    @param viewController current view controller
  */
-- (void)buildSubview:(UIView *)containerView controller:(BaseViewController *)viewController;
+- (void)buildSubview:(UIView *)containerView controller:(DSBaseViewController *)viewController;
 
 @optional
 
@@ -54,14 +59,14 @@ typedef void (^AppearAnimationBlock)(BOOL);
  *      returns NO, or appeared with receiving memory warning state.
  *      DO NOT call this method directly.
  */
-- (void)loadDataForController:(BaseViewController *)viewController;
+- (void)loadDataForController:(DSBaseViewController *)viewController;
 
 /**
  *    @brief This method is used to unload data for viewController, it will be
  *      called when view controller is invisible and received some memory warnings.
  *      DO NOT call this method directly.
  */
-- (void)tearDown:(BaseViewController *)viewController;
+- (void)tearDown:(DSBaseViewController *)viewController;
 
 /**
  *    @brief This method will be called when not receiving memory warning state
@@ -71,14 +76,14 @@ typedef void (^AppearAnimationBlock)(BOOL);
  *      and loadDataForController to reload data for viewController, otherwise,
  *      nothing will be done.
  */
-- (BOOL)shouldInvalidateDataForController:(BaseViewController *)viewController;
+- (BOOL)shouldInvalidateDataForController:(DSBaseViewController *)viewController;
 
 @end
 
 
-#pragma mark - BaseViewController
+#pragma mark - DSBaseViewController
 
-@interface BaseViewController : UIViewController
+@interface DSBaseViewController : UIViewController
 
 @property (nonatomic, assign, readonly) BOOL visible;
 
@@ -91,16 +96,18 @@ typedef void (^AppearAnimationBlock)(BOOL);
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
 - (UIViewController *)popCurrentViewController; // with animation
 
-+ (UIColor *)backgroundColor;
-
-+ (UIImage *)backBarButtonImage;
++ (void)setupWithOption:(NSDictionary<DSBaseViewControllerOptionKeyType, id> *)options;
 
 @end
 
 
 // Should use this as base type for children view controllers.
-typedef BaseViewController<BuildViewDelegate>   BASEVIEWCONTROLLER;
+typedef DSBaseViewController<BuildViewDelegate>   DSBASEVIEWCONTROLLER;
 
+
+#ifdef DS_SHORTHAND
+typedef DSBaseViewController                      BaseViewController;
+typedef DSBASEVIEWCONTROLLER                      BASEVIEWCONTROLLER;
 
 /**
    Use for easy to copy
@@ -121,7 +128,35 @@ typedef BaseViewController<BuildViewDelegate>   BASEVIEWCONTROLLER;
 
    - (BOOL)shouldInvalidateDataForController:(BaseViewController *)viewController
    {
-        return NO;
+       return NO;
    }
 
  **/
+
+#else
+
+/**
+   Use for easy to copy
+
+ #pragma mark - BuildViewDelegate
+
+   - (void)buildSubview:(UIView *)containerView controller:(DSBaseViewController *)viewController
+   {
+   }
+
+   - (void)loadDataForController:(DSBaseViewController *)viewController
+   {
+   }
+
+   - (void)tearDown:(DSBaseViewController *)viewController
+   {
+   }
+
+   - (BOOL)shouldInvalidateDataForController:(DSBaseViewController *)viewController
+   {
+       return NO;
+   }
+
+ **/
+
+#endif

@@ -1,0 +1,39 @@
+//
+//  PrefixHeader.pch
+//  DSBaseViewController-Example
+//
+//  Created by WeiHan on 12/15/16.
+//  Copyright © 2016 Will Han. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#import <CocoaLumberjack.h>
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+
+#define DS_SHORTHAND
+#import <DSBaseViewController/DSBaseViewController.h>
+
+
+/*************** Helper Functions for Example ************************/
+
+#define kSTRKeyLifeCycleMesage      @"kSTRKeyLifeCycleMesage"
+
+static inline void AddObserver(id observer, SEL selector)
+{
+    [[NSNotificationCenter defaultCenter] addObserver:observer selector:selector name:kSTRKeyLifeCycleMesage object:nil];
+}
+
+static inline void PostMessage(NSString *message)
+{
+    DDLogVerbose(@"%@", message);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSTRKeyLifeCycleMesage object:message];
+}
+
+static inline NSString *GetMessage(NSNotification *notification)
+{
+    return notification.object;
+}
+
+#endif /* PrefixHeader_pch */

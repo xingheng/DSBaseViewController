@@ -1,0 +1,5 @@
+
+target 'DSBaseViewController-Example' do
+    pod 'DSBaseViewController', :path => '../'
+    pod 'CocoaLumberjack'
+end

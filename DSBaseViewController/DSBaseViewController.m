@@ -1,23 +1,33 @@
 //
-//  BaseViewController.m
+//  DSBaseViewController.m
 //  youyue
 //
 //  Created by WeiHan on 12/3/15.
 //  Copyright © 2015 DragonSource. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "DSBaseViewController.h"
+
+DSBaseViewControllerOptionKeyType const DSBaseViewControllerOptionBackgroundColor = @"DSBaseViewControllerOptionBackgroundColor";
+DSBaseViewControllerOptionKeyType const DSBaseViewControllerOptionBackBarButtonImage = @"DSBaseViewControllerOptionBackBarButtonImage";
+
+
+static UIColor *DSBaseViewControllerBackgroundColor;
+static UIImage *DSBaseViewControllerBackBarButtonImage;
+
 
 UIImage * GetBackBarButtonImage(CGRect rect);
 
 
-@interface BaseViewController ()
+#pragma mark - DSBaseViewController
+
+@interface DSBaseViewController ()
 
 @property (nonatomic, assign) BOOL fReceivedMemoryWarning;
 
 @end
 
-@implementation BaseViewController
+@implementation DSBaseViewController
 
 - (void)viewDidLoad
 {
@@ -141,14 +151,17 @@ UIImage * GetBackBarButtonImage(CGRect rect);
     return [self.navigationController popViewControllerAnimated:YES];
 }
 
-+ (UIColor *)backgroundColor
++ (void)setupWithOption:(NSDictionary<DSBaseViewControllerOptionKeyType, id> *)options
 {
-    return nil;
-}
-
-+ (UIImage *)backBarButtonImage
-{
-    return GetBackBarButtonImage(CGRectMake(0, 0, 40, 30));
+    for (DSBaseViewControllerOptionKeyType key in options) {
+        if ([key isEqualToString:DSBaseViewControllerOptionBackgroundColor]) {
+            DSBaseViewControllerBackgroundColor = options[key];
+        } else if ([key isEqualToString:DSBaseViewControllerOptionBackBarButtonImage]) {
+            DSBaseViewControllerBackBarButtonImage = options[key];
+        } else {
+            DDLogError(@"Unexpected option key for %@ configuration, key: %@", NSStringFromClass([self class]), key);
+        }
+    }
 }
 
 #pragma mark - Property
@@ -163,14 +176,13 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 
 - (void)_setupAppearance
 {
-    UIColor *color = [[self class] backgroundColor];
-
-    if (color) {
-        self.view.backgroundColor = color;
+    if (DSBaseViewControllerBackgroundColor) {
+        self.view.backgroundColor = DSBaseViewControllerBackgroundColor;
     }
 
     if (self.navigationController.viewControllers.count > 1) {
-        UIBarButtonItem *backBarButton = [[UIBarButtonItem alloc] initWithImage:[[self class] backBarButtonImage] style:UIBarButtonItemStylePlain target:self action:@selector(popCurrentViewController)];
+        UIImage *backBarImage = DSBaseViewControllerBackBarButtonImage ? : GetBackBarButtonImage(CGRectMake(0, 0, 10, 18));
+        UIBarButtonItem *backBarButton = [[UIBarButtonItem alloc] initWithImage:backBarImage style:UIBarButtonItemStylePlain target:self action:@selector(popCurrentViewController)];
         self.navigationItem.leftBarButtonItem = backBarButton;
     }
 }
@@ -235,16 +247,15 @@ UIImage * GetBackBarButtonImage(CGRect rect)
         UIGraphicsBeginImageContext(rect.size);
 
         UIBezierPath *bezierPath = UIBezierPath.bezierPath;
-        [bezierPath moveToPoint:CGPointMake(30.5, 66.5)];
-        [bezierPath addLineToPoint:CGPointMake(2.5, 36.5)];
-        [bezierPath addLineToPoint:CGPointMake(30.5, 2.5)];
+        [bezierPath moveToPoint:CGPointMake(8.0, 16.0)];
+        [bezierPath addLineToPoint:CGPointMake(1.0, 9.0)];
+        [bezierPath addLineToPoint:CGPointMake(8.0, 1.0)];
         bezierPath.lineCapStyle = kCGLineCapRound;
         bezierPath.lineJoinStyle = kCGLineJoinRound;
 
         [UIColor.redColor setStroke];
-        bezierPath.lineWidth = 4;
+        bezierPath.lineWidth = 2;
         [bezierPath stroke];
-
         CGContextAddPath(context, bezierPath.CGPath);
         image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsPopContext();
