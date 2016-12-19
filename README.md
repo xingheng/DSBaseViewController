@@ -1,5 +1,6 @@
 # DSBaseViewController
 
+[![CI Status](http://img.shields.io/travis/xingheng/DSBaseViewController.svg?style=flat)](https://travis-ci.org/xingheng/DSBaseViewController)
 [![Version](https://img.shields.io/cocoapods/v/DSBaseViewController.svg?style=flat)](http://cocoapods.org/pods/DSBaseViewController)
 [![License](https://img.shields.io/cocoapods/l/DSBaseViewController.svg?style=flat)](http://cocoapods.org/pods/DSBaseViewController)
 [![Platform](https://img.shields.io/cocoapods/p/DSBaseViewController.svg?style=flat)](http://cocoapods.org/pods/DSBaseViewController)
