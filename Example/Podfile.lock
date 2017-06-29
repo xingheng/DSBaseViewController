@@ -7,7 +7,7 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (3.0.0):
     - CocoaLumberjack/Default
-  - DSBaseViewController (1.2.0)
+  - DSBaseViewController (1.2.1)
 
 DEPENDENCIES:
   - CocoaLumberjack
@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CocoaLumberjack: c823149bccc5519a9447aeb433be7b1212a7d6a5
-  DSBaseViewController: 110f1b65d8f818917e46c356ed2b6781356f6578
+  DSBaseViewController: be931bb12d3ca16de78cebe977c5abb413f3eda2
 
 PODFILE CHECKSUM: 67d6202f47a06c9f74553941d56b9bf68e1c8201
 
