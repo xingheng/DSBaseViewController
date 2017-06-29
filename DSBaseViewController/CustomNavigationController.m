@@ -77,7 +77,7 @@
 
 #pragma mark - Public
 
-- (UIViewController *)popToViewControllerClass:(Class)viewControllerClass animated:(BOOL)animated
+- (__kindof UIViewController *)popToViewControllerClass:(Class)viewControllerClass animated:(BOOL)animated
 {
     NSParameterAssert(viewControllerClass && [viewControllerClass isSubclassOfClass:[UIViewController class]]);
 
@@ -134,12 +134,12 @@
 
 @implementation DSBaseViewController (Navigation)
 
-- (UIViewController *)popToViewController:(Class)viewControllerClass
+- (__kindof UIViewController *)popToViewController:(Class)viewControllerClass
 {
     return [self popToViewController:viewControllerClass animated:YES];
 }
 
-- (UIViewController *)popToViewController:(Class)viewControllerClass animated:(BOOL)animated
+- (__kindof UIViewController *)popToViewController:(Class)viewControllerClass animated:(BOOL)animated
 {
     NSParameterAssert(viewControllerClass && [viewControllerClass isSubclassOfClass:[DSBaseViewController class]]);
 

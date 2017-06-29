@@ -146,7 +146,7 @@ UIImage * GetBackBarButtonImage(CGRect rect);
     }
 }
 
-- (UIViewController *)popCurrentViewController
+- (__kindof UIViewController *)popCurrentViewController
 {
     return [self.navigationController popViewControllerAnimated:YES];
 }

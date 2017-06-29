@@ -94,7 +94,7 @@ typedef void (^AppearAnimationBlock)(BOOL);
 
 - (void)pushViewController:(UIViewController *)viewController; // with animation
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
-- (UIViewController *)popCurrentViewController; // with animation
+- (__kindof UIViewController *)popCurrentViewController; // with animation
 
 + (void)setupWithOption:(NSDictionary<DSBaseViewControllerOptionKeyType, id> *)options;
 

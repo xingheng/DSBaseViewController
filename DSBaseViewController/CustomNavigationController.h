@@ -18,13 +18,13 @@
  *
  *    @return   Return the top view controller after pop.
  */
-- (UIViewController *)popToViewControllerClass:(Class)viewControllerClass animated:(BOOL)animated;
+- (__kindof UIViewController *)popToViewControllerClass:(Class)viewControllerClass animated:(BOOL)animated;
 
 @end
 
 @interface DSBaseViewController (Navigation)
 
-- (UIViewController *)popToViewController:(Class)viewControllerClass; // with animation
-- (UIViewController *)popToViewController:(Class)viewControllerClass animated:(BOOL)animated;
+- (__kindof UIViewController *)popToViewController:(Class)viewControllerClass; // with animation
+- (__kindof UIViewController *)popToViewController:(Class)viewControllerClass animated:(BOOL)animated;
 
 @end
