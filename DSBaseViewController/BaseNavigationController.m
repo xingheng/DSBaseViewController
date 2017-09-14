@@ -1,5 +1,5 @@
 //
-//  CustomNavigationController.m
+//  BaseNavigationController.m
 //  youyue
 //
 //  Created by WeiHan on 12/3/15.
@@ -13,17 +13,17 @@
 //      https://github.com/fastred/AHKNavigationController
 //
 
-#import "CustomNavigationController.h"
+#import "BaseNavigationController.h"
 
 #define InteractivePopGesture 1 // hack!
 
-#pragma mark - CustomNavigationController
+#pragma mark - BaseNavigationController
 
-@interface CustomNavigationController () <UINavigationControllerDelegate, UIGestureRecognizerDelegate>
+@interface BaseNavigationController () <UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
 @end
 
-@implementation CustomNavigationController
+@implementation BaseNavigationController
 
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController
 {
@@ -143,7 +143,7 @@
 {
     NSParameterAssert(viewControllerClass && [viewControllerClass isSubclassOfClass:[DSBaseViewController class]]);
 
-    CustomNavigationController *naviVC = (CustomNavigationController *)self.navigationController;
+    BaseNavigationController *naviVC = (BaseNavigationController *)self.navigationController;
 
     return [naviVC popToViewControllerClass:viewControllerClass animated:animated];
 }

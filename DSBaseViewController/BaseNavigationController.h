@@ -1,5 +1,5 @@
 //
-//  CustomNavigationController.h
+//  BaseNavigationController.h
 //  youyue
 //
 //  Created by WeiHan on 12/3/15.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DSBaseViewController.h"
 
-@interface CustomNavigationController : UINavigationController
+@interface BaseNavigationController : UINavigationController
 
 @property (nonatomic, assign) BOOL enableInteractivePopGesture; // default is YES
 

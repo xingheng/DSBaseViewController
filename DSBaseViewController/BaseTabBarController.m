@@ -1,18 +1,18 @@
 //
-//  CustomTabBarController.m
+//  BaseTabBarController.m
 //  DragonSourceCommon
 //
 //  Created by WeiHan on 12/23/15.
 //  Copyright © 2015 DragonSource. All rights reserved.
 //
 
-#import "CustomTabBarController.h"
+#import "BaseTabBarController.h"
 
-@interface CustomTabBarController ()<UITabBarControllerDelegate>
+@interface BaseTabBarController ()<UITabBarControllerDelegate>
 
 @end
 
-@implementation CustomTabBarController
+@implementation BaseTabBarController
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

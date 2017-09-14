@@ -1,5 +1,5 @@
 //
-//  CustomTabBarController.h
+//  BaseTabBarController.h
 //  DragonSourceCommon
 //
 //  Created by WeiHan on 12/23/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CustomTabBarController : UITabBarController
+@interface BaseTabBarController : UITabBarController
 
 @property (nonatomic, copy) BOOL (^ shouldSelectViewControllerBlock)(NSInteger index, UIViewController *viewController);
 
