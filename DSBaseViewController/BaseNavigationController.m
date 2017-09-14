@@ -30,8 +30,6 @@
     self.enableInteractivePopGesture = YES;
 
     if (self = [super initWithRootViewController:rootViewController]) {
-        // make the content views' vertical offset in view controller starts from navigation bar's bottom instead of top screen.
-        self.navigationBar.translucent = NO;
         self.delegate = self;
     }
 

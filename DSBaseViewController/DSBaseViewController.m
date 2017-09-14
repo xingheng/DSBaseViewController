@@ -176,6 +176,10 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 
 - (void)_setupAppearance
 {
+    // make the content views' vertical offset in view controller starts from navigation bar's bottom instead of top screen.
+    // https://stackoverflow.com/a/19585104/1677041
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
     if (DSBaseViewControllerBackgroundColor) {
         self.view.backgroundColor = DSBaseViewControllerBackgroundColor;
     }
