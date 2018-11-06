@@ -11,7 +11,6 @@
 DSBaseViewControllerOptionKeyType const DSBaseViewControllerOptionBackgroundColor = @"DSBaseViewControllerOptionBackgroundColor";
 DSBaseViewControllerOptionKeyType const DSBaseViewControllerOptionBackBarButtonImage = @"DSBaseViewControllerOptionBackBarButtonImage";
 
-
 static UIColor *DSBaseViewControllerBackgroundColor;
 static UIImage *DSBaseViewControllerBackBarButtonImage;
 
@@ -35,14 +34,10 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 
     [self _setupAppearance];
 
-    if ([self conformsToProtocol:@protocol(BuildViewDelegate)]) {
-        id<BuildViewDelegate> controller = (id<BuildViewDelegate>)self;
-
-        if ([controller respondsToSelector:@selector(buildSubview:controller:)]) {
-            [controller buildSubview:self.view controller:self];
-        } else {
-            DDLogError(@"%@ comformed BuildViewDelegate but did not implemented its delegate method!", NSStringFromClass([self class]));
-        }
+    if ([self.delegate respondsToSelector:@selector(buildSubview:controller:)]) {
+        [self.delegate buildSubview:self.view controller:self];
+    } else {
+        DDLogError(@"%@ doesn't comform the required delegate methods of BuildViewDelegate!", self.delegate);
     }
 
     if (![self _hasInvalidStatusData]) {
@@ -62,7 +57,10 @@ UIImage * GetBackBarButtonImage(CGRect rect);
         [self _loadDataSafely];
         self.fReceivedMemoryWarning = NO;
     } else {
-        [self _reloadDataSafely];
+        if ([self _hasInvalidStatusData]) {
+            [self.delegate tearDown:self];
+            [self.delegate loadDataForController:self];
+        }
     }
 }
 
@@ -92,20 +90,20 @@ UIImage * GetBackBarButtonImage(CGRect rect);
         self.didDisappearBlock(animated);
     }
 
-    [self _unloadDataSafely];
+    if ([self _hasInvalidStatusData]) {
+        [self.delegate tearDown:self];
+    }
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 
-    if (!self.visible && [self conformsToProtocol:@protocol(BuildViewDelegate)]) {
+    if (!self.visible) {
         DDLogVerbose(@"%@ - received memory warning.", [self class]);
 
-        id<BuildViewDelegate> controller = (id<BuildViewDelegate>)self;
-
-        if ([controller respondsToSelector:@selector(tearDown:)]) {
-            [controller tearDown:self];
+        if ([self.delegate respondsToSelector:@selector(tearDown:)]) {
+            [self.delegate tearDown:self];
             self.fReceivedMemoryWarning = YES;
         }
     }
@@ -130,27 +128,6 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 
 #pragma mark - Public
 
-- (void)pushViewController:(UIViewController *)viewController
-{
-    [self pushViewController:viewController animated:YES];
-}
-
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    UINavigationController *naviVC = self.navigationController;
-
-    NSAssert(naviVC, @"No navigation controller in current view controller stack!");
-
-    if (naviVC) {
-        [naviVC pushViewController:viewController animated:animated];
-    }
-}
-
-- (__kindof UIViewController *)popCurrentViewController
-{
-    return [self.navigationController popViewControllerAnimated:YES];
-}
-
 + (void)setupWithOption:(NSDictionary<DSBaseViewControllerOptionKeyType, id> *)options
 {
     for (DSBaseViewControllerOptionKeyType key in options) {
@@ -166,10 +143,19 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 
 #pragma mark - Property
 
+- (id<BuildViewDelegate>)delegate
+{
+    if (!_delegate) {
+        _delegate = self;
+    }
+
+    return _delegate;
+}
+
 - (BOOL)visible
 {
     // http://stackoverflow.com/a/2777460/1677041
-    return [self isViewLoaded] && self.view.window;
+    return self.isViewLoaded && self.view.window;
 }
 
 #pragma mark - Private
@@ -189,29 +175,8 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 
 - (void)_loadDataSafely
 {
-    if ([self conformsToProtocol:@protocol(BuildViewDelegate)]) {
-        id<BuildViewDelegate> controller = (id<BuildViewDelegate>)self;
-
-        if ([controller respondsToSelector:@selector(loadDataForController:)]) {
-            [controller loadDataForController:self];
-        }
-    }
-}
-
-- (void)_reloadDataSafely
-{
-    if ([self _hasInvalidStatusData]) {
-        id<BuildViewDelegate> controller = (id<BuildViewDelegate>)self;
-        [controller tearDown:self];
-        [controller loadDataForController:self];
-    }
-}
-
-- (void)_unloadDataSafely
-{
-    if ([self _hasInvalidStatusData]) {
-        id<BuildViewDelegate> controller = (id<BuildViewDelegate>)self;
-        [controller tearDown:self];
+    if ([self.delegate respondsToSelector:@selector(loadDataForController:)]) {
+        [self.delegate loadDataForController:self];
     }
 }
 
@@ -219,15 +184,59 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 {
     BOOL result = NO;
 
-    if ([self conformsToProtocol:@protocol(BuildViewDelegate)]) {
-        id<BuildViewDelegate> controller = (id<BuildViewDelegate>)self;
-
-        if ([controller respondsToSelector:@selector(shouldInvalidateDataForController:)]) {
-            result = [controller shouldInvalidateDataForController:self];
-        }
+    if ([self.delegate respondsToSelector:@selector(shouldInvalidateDataForController:)]) {
+        result = [self.delegate shouldInvalidateDataForController:self];
     }
 
     return result;
+}
+
+#pragma mark - BuildViewDelegate
+
+- (void)buildSubview:(UIView *)containerView controller:(DSBaseViewController *)viewController
+{
+}
+
+- (void)loadDataForController:(DSBaseViewController *)viewController
+{
+}
+
+- (void)tearDown:(DSBaseViewController *)viewController
+{
+}
+
+- (BOOL)shouldInvalidateDataForController:(DSBaseViewController *)viewController
+{
+    return NO;
+}
+
+@end
+
+#pragma mark - DSBaseViewController (NavigationController)
+
+@implementation DSBaseViewController (NavigationController)
+
+#pragma mark - Public
+
+- (void)pushViewController:(UIViewController *)viewController
+{
+    [self pushViewController:viewController animated:YES];
+}
+
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    UINavigationController *naviVC = self.navigationController;
+
+    NSAssert(naviVC, @"No navigation controller in current view controller stack!");
+
+    if (naviVC) {
+        [naviVC pushViewController:viewController animated:animated];
+    }
+}
+
+- (__kindof UIViewController *)popCurrentViewController
+{
+    return [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

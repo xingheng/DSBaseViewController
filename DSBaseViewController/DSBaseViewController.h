@@ -17,12 +17,12 @@
 #endif
 
 
-typedef NSString * DSBaseViewControllerOptionKeyType;
+typedef NSString *DSBaseViewControllerOptionKeyType;
 
 FOUNDATION_EXPORT DSBaseViewControllerOptionKeyType const DSBaseViewControllerOptionBackgroundColor;
 FOUNDATION_EXPORT DSBaseViewControllerOptionKeyType const DSBaseViewControllerOptionBackBarButtonImage;
 
-typedef void (^AppearAnimationBlock)(BOOL);
+typedef void (^AppearAnimationBlock)(BOOL animated);
 
 @class DSBaseViewController;
 
@@ -72,7 +72,9 @@ typedef void (^AppearAnimationBlock)(BOOL);
 
 #pragma mark - DSBaseViewController
 
-@interface DSBaseViewController : UIViewController
+@interface DSBaseViewController : UIViewController <BuildViewDelegate>
+
+@property (nonatomic, weak) id<BuildViewDelegate> delegate; // defaults to the instance of itself.
 
 @property (nonatomic, assign, readonly) BOOL visible;
 
@@ -81,22 +83,27 @@ typedef void (^AppearAnimationBlock)(BOOL);
 @property (nonatomic, copy) AppearAnimationBlock willDisappearBlock;
 @property (nonatomic, copy) AppearAnimationBlock didDisappearBlock;
 
-- (void)pushViewController:(UIViewController *)viewController; // with animation
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
-- (__kindof UIViewController *)popCurrentViewController; // with animation
-
 + (void)setupWithOption:(NSDictionary<DSBaseViewControllerOptionKeyType, id> *)options;
 
 @end
 
 
+@interface DSBaseViewController (NavigationController)
+
+- (void)pushViewController:(UIViewController *)viewController; // with animation
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
+- (__kindof UIViewController *)popCurrentViewController; // with animation
+
+@end
+
+
 // Should use this as base type for children view controllers.
-typedef DSBaseViewController<BuildViewDelegate>   DSBASEVIEWCONTROLLER;
+typedef DSBaseViewController<BuildViewDelegate> DSBASEVIEWCONTROLLER;
 
 
 #ifdef DS_SHORTHAND
-typedef DSBaseViewController                      BaseViewController;
-typedef DSBASEVIEWCONTROLLER                      BASEVIEWCONTROLLER;
+typedef DSBaseViewController                    BaseViewController;
+typedef DSBASEVIEWCONTROLLER                    BASEVIEWCONTROLLER;
 
 /**
    Use for easy to copy

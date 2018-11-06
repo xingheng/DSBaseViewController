@@ -18,6 +18,22 @@
 {
     [super viewDidLoad];
 
+    self.willAppearBlock = ^(BOOL animated) {
+        PostMessage([NSString stringWithFormat:@"%s: willAppearBlock", __func__]);
+    };
+
+    self.didAppearBlock = ^(BOOL animated) {
+        PostMessage([NSString stringWithFormat:@"%s: didAppearBlock", __func__]);
+    };
+
+    self.willDisappearBlock = ^(BOOL animated) {
+        PostMessage([NSString stringWithFormat:@"%s: willDisappearBlock", __func__]);
+    };
+
+    self.didDisappearBlock = ^(BOOL animated) {
+        PostMessage([NSString stringWithFormat:@"%s: didDisappearBlock", __func__]);
+    };
+
     self.title = self.description;
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(navigateBarButtonTapped:)];

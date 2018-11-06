@@ -15,6 +15,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose; // DDLogLevelInfo;
 #define DS_SHORTHAND
 #import <DSBaseViewController/DSBaseViewController.h>
 
+#define InitForViewController(__statement__)                                                     \
+    - (instancetype)initWithNibName: (NSString *)nibNameOrNil bundle: (NSBundle *)nibBundleOrNil \
+    {                                                                                            \
+        if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {                 \
+            {                                                                                    \
+                __statement__                                                                    \
+            }                                                                                    \
+        }                                                                                        \
+        return self;                                                                             \
+    }
+
+
 
 /*************** Helper Functions for Example ************************/
 

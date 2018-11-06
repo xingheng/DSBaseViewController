@@ -33,6 +33,22 @@ InitForViewController(AddObserver(self, @selector(onNotificationReceived:)); )
 {
     [super viewDidLoad];
 
+    self.willAppearBlock = ^(BOOL animated) {
+        PostMessage([NSString stringWithFormat:@"%s: willAppearBlock", __func__]);
+    };
+
+    self.didAppearBlock = ^(BOOL animated) {
+        PostMessage([NSString stringWithFormat:@"%s: didAppearBlock", __func__]);
+    };
+
+    self.willDisappearBlock = ^(BOOL animated) {
+        PostMessage([NSString stringWithFormat:@"%s: willDisappearBlock", __func__]);
+    };
+
+    self.didDisappearBlock = ^(BOOL animated) {
+        PostMessage([NSString stringWithFormat:@"%s: didDisappearBlock", __func__]);
+    };
+
     self.title = NSStringFromClass([self class]);
 
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Clear" style:UIBarButtonItemStylePlain target:self action:@selector(clearBarButtonTapped:)];
