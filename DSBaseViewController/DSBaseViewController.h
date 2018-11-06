@@ -17,17 +17,6 @@
 #endif
 
 
-#define InitForViewController(__statement__)                                                     \
-    - (instancetype)initWithNibName: (NSString *)nibNameOrNil bundle: (NSBundle *)nibBundleOrNil \
-    {                                                                                            \
-        if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {                 \
-            {                                                                                    \
-                __statement__                                                                    \
-            }                                                                                    \
-        }                                                                                        \
-        return self;                                                                             \
-    }
-
 typedef NSString * DSBaseViewControllerOptionKeyType;
 
 FOUNDATION_EXPORT DSBaseViewControllerOptionKeyType const DSBaseViewControllerOptionBackgroundColor;
