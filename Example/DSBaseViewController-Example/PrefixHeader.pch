@@ -10,7 +10,7 @@
 #define PrefixHeader_pch
 
 #import <CocoaLumberjack.h>
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose; // DDLogLevelInfo;
 
 #define DS_SHORTHAND
 #import <DSBaseViewController/DSBaseViewController.h>
