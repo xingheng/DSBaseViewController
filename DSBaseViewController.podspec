@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "DSBaseViewController"
-  s.version      = "1.3.1"
+  s.version      = "1.4.0"
   s.summary      = "A serial of UIViewController classes used as super class."
 
   s.description  = <<-DESC
@@ -22,7 +22,7 @@ The 'DS' prefix is short for Data State, also stand for my team name with Dragon
   s.license      = { :type => "MIT", :file => "LICENSE" }
 
   s.author             = { "Will Han" => "xingheng.hax@qq.com" }
-  s.social_media_url   = "http://weibo.com/1882207114"
+  s.social_media_url   = "https://twitter.com/xingheng907"
 
   s.platform     = :ios
 
