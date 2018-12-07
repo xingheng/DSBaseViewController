@@ -58,8 +58,7 @@ UIImage * GetBackBarButtonImage(CGRect rect);
         self.fReceivedMemoryWarning = NO;
     } else {
         if ([self _hasInvalidStatusData]) {
-            [self.delegate tearDown:self];
-            [self.delegate loadDataForController:self];
+            [self _loadDataSafely];
         }
     }
 }
@@ -91,7 +90,7 @@ UIImage * GetBackBarButtonImage(CGRect rect);
     }
 
     if ([self _hasInvalidStatusData]) {
-        [self.delegate tearDown:self];
+        [self _unloadDataSafely];
     }
 }
 
@@ -102,10 +101,8 @@ UIImage * GetBackBarButtonImage(CGRect rect);
     if (!self.visible) {
         DDLogVerbose(@"%@ - received memory warning.", [self class]);
 
-        if ([self.delegate respondsToSelector:@selector(tearDown:)]) {
-            [self.delegate tearDown:self];
-            self.fReceivedMemoryWarning = YES;
-        }
+        [self _unloadDataSafely];
+        self.fReceivedMemoryWarning = YES;
     }
 }
 
@@ -177,6 +174,13 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 {
     if ([self.delegate respondsToSelector:@selector(loadDataForController:)]) {
         [self.delegate loadDataForController:self];
+    }
+}
+
+- (void)_unloadDataSafely
+{
+    if ([self.delegate respondsToSelector:@selector(loadDataForController:)]) {
+        [self.delegate tearDown:self];
     }
 }
 
