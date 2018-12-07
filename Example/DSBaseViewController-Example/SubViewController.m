@@ -18,20 +18,20 @@
 {
     [super viewDidLoad];
 
-    self.willAppearBlock = ^(BOOL animated) {
-        PostMessage([NSString stringWithFormat:@"%s: willAppearBlock", __func__]);
-    };
-
-    self.didAppearBlock = ^(BOOL animated) {
-        PostMessage([NSString stringWithFormat:@"%s: didAppearBlock", __func__]);
-    };
-
-    self.willDisappearBlock = ^(BOOL animated) {
-        PostMessage([NSString stringWithFormat:@"%s: willDisappearBlock", __func__]);
-    };
-
-    self.didDisappearBlock = ^(BOOL animated) {
-        PostMessage([NSString stringWithFormat:@"%s: didDisappearBlock", __func__]);
+    self.appearStateBlock = ^(BOOL appear, BOOL finished, BOOL animated, __kindof DSBaseViewController *controller) {
+        if (appear) {
+            if (finished) {
+                PostMessage([NSString stringWithFormat:@"%@: did appear", controller.title]);
+            } else {
+                PostMessage([NSString stringWithFormat:@"%@: will appear", controller.title]);
+            }
+        } else {
+            if (finished) {
+                PostMessage([NSString stringWithFormat:@"%@: did disappear", controller.title]);
+            } else {
+                PostMessage([NSString stringWithFormat:@"%@: will disappear", controller.title]);
+            }
+        }
     };
 
     self.title = self.description;

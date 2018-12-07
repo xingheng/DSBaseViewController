@@ -16,6 +16,7 @@
     #define DDLogVerbose(frmt, ...) NSLog(frmt, ## __VA_ARGS__)
 #endif
 
+@class DSBaseViewController;
 
 typedef NSString *DSBaseViewControllerOptionKeyType;
 
@@ -23,9 +24,9 @@ FOUNDATION_EXPORT DSBaseViewControllerOptionKeyType const DSBaseViewControllerOp
 FOUNDATION_EXPORT DSBaseViewControllerOptionKeyType const DSBaseViewControllerOptionBackBarButtonImage;
 
 typedef void (^AppearAnimationBlock)(BOOL animated);
+typedef void (^AppearStateBlock)(BOOL appear, BOOL finished, BOOL animated, __kindof DSBaseViewController *controller);
 
-@class DSBaseViewController;
-
+typedef void (^LoadViewControllerBlock)(__kindof DSBaseViewController *controller);
 
 #pragma mark - BuildViewDelegate
 
@@ -52,7 +53,7 @@ typedef void (^AppearAnimationBlock)(BOOL animated);
 
 /**
  *    @brief This method is used to unload data for viewController, it will be
- *      called when view controller is invisible and received some memory warnings.
+ *      called when view controller is invisible and/or received some memory warnings.
  *      DO NOT call this method directly.
  */
 - (void)tearDown:(DSBaseViewController *)viewController;
@@ -78,12 +79,16 @@ typedef void (^AppearAnimationBlock)(BOOL animated);
 
 @property (nonatomic, assign, readonly) BOOL visible;
 
-@property (nonatomic, copy) AppearAnimationBlock willAppearBlock;
-@property (nonatomic, copy) AppearAnimationBlock didAppearBlock;
-@property (nonatomic, copy) AppearAnimationBlock willDisappearBlock;
-@property (nonatomic, copy) AppearAnimationBlock didDisappearBlock;
+@property (nonatomic, copy) AppearStateBlock appearStateBlock;
 
-+ (void)setupWithOption:(NSDictionary<DSBaseViewControllerOptionKeyType, id> *)options;
+@property (nonatomic, copy) AppearAnimationBlock willAppearBlock __attribute__((deprecated("Replace it with appearStateBlock instead, please!")));
+@property (nonatomic, copy) AppearAnimationBlock didAppearBlock __attribute__((deprecated("Replace it with appearStateBlock instead, please!")));
+@property (nonatomic, copy) AppearAnimationBlock willDisappearBlock __attribute__((deprecated("Replace it with appearStateBlock instead, please!")));
+@property (nonatomic, copy) AppearAnimationBlock didDisappearBlock __attribute__((deprecated("Replace it with appearStateBlock instead, please!")));
+
++ (void)setupWithOption:(NSDictionary<DSBaseViewControllerOptionKeyType, id> *)options __attribute__((deprecated("Use setupWithOptionBlock instead, please!")));
+
++ (void)setupWithOptionBlock:(LoadViewControllerBlock)loadOptionBlock;
 
 @end
 

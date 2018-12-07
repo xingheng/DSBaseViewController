@@ -14,6 +14,7 @@ DSBaseViewControllerOptionKeyType const DSBaseViewControllerOptionBackBarButtonI
 static UIColor *DSBaseViewControllerBackgroundColor;
 static UIImage *DSBaseViewControllerBackBarButtonImage;
 
+static LoadViewControllerBlock gLoadOptionBlock;
 
 UIImage * GetBackBarButtonImage(CGRect rect);
 
@@ -45,12 +46,19 @@ UIImage * GetBackBarButtonImage(CGRect rect);
     }
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
+    if (self.appearStateBlock) {
+        self.appearStateBlock(YES, NO, animated, self);
+    }
+
     if (self.willAppearBlock) {
-        self.willAppearBlock(animated);
+        self.willAppearBlock( animated);
     }
 
     if (self.fReceivedMemoryWarning) {
@@ -67,6 +75,10 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 {
     [super viewDidAppear:animated];
 
+    if (self.appearStateBlock) {
+        self.appearStateBlock(YES, YES, animated, self);
+    }
+
     if (self.didAppearBlock) {
         self.didAppearBlock(animated);
     }
@@ -75,6 +87,10 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+
+    if (self.appearStateBlock) {
+        self.appearStateBlock(NO, NO, animated, self);
+    }
 
     if (self.willDisappearBlock) {
         self.willDisappearBlock(animated);
@@ -85,6 +101,10 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 {
     [super viewDidDisappear:animated];
 
+    if (self.appearStateBlock) {
+        self.appearStateBlock(NO, YES, animated, self);
+    }
+
     if (self.didDisappearBlock) {
         self.didDisappearBlock(animated);
     }
@@ -93,6 +113,8 @@ UIImage * GetBackBarButtonImage(CGRect rect);
         [self _unloadDataSafely];
     }
 }
+
+#pragma clang diagnostic pop
 
 - (void)didReceiveMemoryWarning
 {
@@ -138,6 +160,11 @@ UIImage * GetBackBarButtonImage(CGRect rect);
     }
 }
 
++ (void)setupWithOptionBlock:(LoadViewControllerBlock)loadOptionBlock
+{
+    gLoadOptionBlock = loadOptionBlock;
+}
+
 #pragma mark - Property
 
 - (id<BuildViewDelegate>)delegate
@@ -159,6 +186,10 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 
 - (void)_setupAppearance
 {
+    if (gLoadOptionBlock) {
+        gLoadOptionBlock(self);
+    }
+
     if (DSBaseViewControllerBackgroundColor) {
         self.view.backgroundColor = DSBaseViewControllerBackgroundColor;
     }

@@ -22,17 +22,9 @@
 
     [self setupDDLog];
 
-    // Setup configuration for DSBaseViewController.
-    NSDictionary *options = @{
-        DSBaseViewControllerOptionBackgroundColor: [UIColor colorWithRed:0.9f
-                                                                   green:0.9f
-                                                                    blue:0.9f
-                                                                   alpha:1.0],
-//        DSBaseViewControllerOptionBackBarButtonImage: [UIImage imageNamed:@"back_bar_icon"]
-    };
-
-    [BaseViewController setupWithOption:options];
-
+    [BaseViewController setupWithOptionBlock:^(__kindof DSBaseViewController *controller) {
+        controller.view.backgroundColor = [UIColor colorWithRed:0.9f green:0.9f blue:0.9f alpha:1.0];
+    }];
 
     MainViewController *mainVC = [MainViewController new];
     UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:mainVC];
