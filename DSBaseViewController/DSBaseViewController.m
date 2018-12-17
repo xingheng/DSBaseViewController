@@ -35,10 +35,10 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 
     [self _setupAppearance];
 
-    if ([self.delegate respondsToSelector:@selector(buildSubview:controller:)]) {
-        [self.delegate buildSubview:self.view controller:self];
+    if ([self.buildDelegate respondsToSelector:@selector(buildSubview:controller:)]) {
+        [self.buildDelegate buildSubview:self.view controller:self];
     } else {
-        DDLogError(@"%@ doesn't comform the required delegate methods of BuildViewDelegate!", self.delegate);
+        DDLogError(@"%@ doesn't comform the required delegate methods of BuildViewDelegate!", self.buildDelegate);
     }
 
     if (![self _hasInvalidStatusData]) {
@@ -58,7 +58,7 @@ UIImage * GetBackBarButtonImage(CGRect rect);
     }
 
     if (self.willAppearBlock) {
-        self.willAppearBlock( animated);
+        self.willAppearBlock(animated);
     }
 
     if (self.fReceivedMemoryWarning) {
@@ -167,13 +167,13 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 
 #pragma mark - Property
 
-- (id<BuildViewDelegate>)delegate
+- (id<BuildViewDelegate>)buildDelegate
 {
-    if (!_delegate) {
-        _delegate = self;
+    if (!_buildDelegate) {
+        _buildDelegate = self;
     }
 
-    return _delegate;
+    return _buildDelegate;
 }
 
 - (BOOL)visible
@@ -203,15 +203,15 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 
 - (void)_loadDataSafely
 {
-    if ([self.delegate respondsToSelector:@selector(loadDataForController:)]) {
-        [self.delegate loadDataForController:self];
+    if ([self.buildDelegate respondsToSelector:@selector(loadDataForController:)]) {
+        [self.buildDelegate loadDataForController:self];
     }
 }
 
 - (void)_unloadDataSafely
 {
-    if ([self.delegate respondsToSelector:@selector(loadDataForController:)]) {
-        [self.delegate tearDown:self];
+    if ([self.buildDelegate respondsToSelector:@selector(loadDataForController:)]) {
+        [self.buildDelegate tearDown:self];
     }
 }
 
@@ -219,8 +219,8 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 {
     BOOL result = NO;
 
-    if ([self.delegate respondsToSelector:@selector(shouldInvalidateDataForController:)]) {
-        result = [self.delegate shouldInvalidateDataForController:self];
+    if ([self.buildDelegate respondsToSelector:@selector(shouldInvalidateDataForController:)]) {
+        result = [self.buildDelegate shouldInvalidateDataForController:self];
     }
 
     return result;

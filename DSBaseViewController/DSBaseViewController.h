@@ -75,7 +75,7 @@ typedef void (^LoadViewControllerBlock)(__kindof DSBaseViewController *controlle
 
 @interface DSBaseViewController : UIViewController <BuildViewDelegate>
 
-@property (nonatomic, weak) id<BuildViewDelegate> delegate; // defaults to the instance of itself.
+@property (nonatomic, weak) id<BuildViewDelegate> buildDelegate; // defaults to the instance of itself.
 
 @property (nonatomic, assign, readonly) BOOL visible;
 
