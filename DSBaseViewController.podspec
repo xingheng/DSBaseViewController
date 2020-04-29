@@ -9,11 +9,11 @@
 Pod::Spec.new do |s|
 
   s.name         = "DSBaseViewController"
-  s.version      = "1.4.1"
-  s.summary      = "A serial of UIViewController classes used as super class."
+  s.version      = "1.5.0"
+  s.summary      = "A serial of super view controller classes."
 
   s.description  = <<-DESC
-The 'DS' prefix is short for Data State, also stand for my team name with Dragon Source. DSBaseViewController brings the convenience for UIViewController subclasses to maintain the subviews' construction and data source management, it extends a core protocol with overriding methods of UIViewController, conforming the protocol for the subclasses will get the beautiful magic.
+DSBaseViewController brings the convenience for your view controllers to maintain the subviews' construction and data source management, it extends a core protocol with overriding methods of UIViewController, conforming the protocol for the subclasses will get the beautiful magic.
                    DESC
 
   s.homepage     = "http://github.com/xingheng/DSBaseViewController"
