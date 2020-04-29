@@ -16,8 +16,6 @@ static UIImage *DSBaseViewControllerBackBarButtonImage;
 
 static LoadViewControllerBlock gLoadOptionBlock;
 
-UIImage * GetBackBarButtonImage(CGRect rect);
-
 
 #pragma mark - DSBaseViewController
 
@@ -195,7 +193,7 @@ UIImage * GetBackBarButtonImage(CGRect rect);
     }
 
     if (self.navigationController.viewControllers.count > 1) {
-        UIImage *backBarImage = DSBaseViewControllerBackBarButtonImage ? : GetBackBarButtonImage(CGRectMake(0, 0, 10, 18));
+        UIImage *backBarImage = DSBaseViewControllerBackBarButtonImage;
         UIBarButtonItem *backBarButton = [[UIBarButtonItem alloc] initWithImage:backBarImage style:UIBarButtonItemStylePlain target:self action:@selector(popCurrentViewController)];
         self.navigationItem.leftBarButtonItem = backBarButton;
     }
@@ -275,36 +273,3 @@ UIImage * GetBackBarButtonImage(CGRect rect);
 }
 
 @end
-
-
-#pragma mark - Functions
-
-UIImage * GetBackBarButtonImage(CGRect rect)
-{
-    static UIImage *image = nil;
-    static dispatch_once_t onceToken;
-
-    dispatch_once(&onceToken, ^{
-        CGContextRef context = UIGraphicsGetCurrentContext();
-
-        UIGraphicsPushContext(context);
-        UIGraphicsBeginImageContext(rect.size);
-
-        UIBezierPath *bezierPath = UIBezierPath.bezierPath;
-        [bezierPath moveToPoint:CGPointMake(8.0, 16.0)];
-        [bezierPath addLineToPoint:CGPointMake(1.0, 9.0)];
-        [bezierPath addLineToPoint:CGPointMake(8.0, 1.0)];
-        bezierPath.lineCapStyle = kCGLineCapRound;
-        bezierPath.lineJoinStyle = kCGLineJoinRound;
-
-        [UIColor.redColor setStroke];
-        bezierPath.lineWidth = 2;
-        [bezierPath stroke];
-        CGContextAddPath(context, bezierPath.CGPath);
-        image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsPopContext();
-        UIGraphicsEndImageContext();
-    });
-
-    return image;
-}

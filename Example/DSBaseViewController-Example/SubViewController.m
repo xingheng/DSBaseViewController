@@ -70,17 +70,17 @@
 
 #pragma mark - BuildViewDelegate
 
-- (void)buildSubview:(UIView *)containerView controller:(BaseViewController *)viewController
+- (void)buildSubview:(UIView *)containerView controller:(DSBaseViewController *)viewController
 {
     PostMessage([NSString stringWithFormat:@"%@ - %s", self.description, __func__]);
 }
 
-- (void)loadDataForController:(BaseViewController *)viewController
+- (void)loadDataForController:(DSBaseViewController *)viewController
 {
     PostMessage([NSString stringWithFormat:@"%@ - %s", self.description, __func__]);
 }
 
-- (void)tearDown:(BaseViewController *)viewController
+- (void)tearDown:(DSBaseViewController *)viewController
 {
     PostMessage([NSString stringWithFormat:@"%@ - %s", self.description, __func__]);
 }
