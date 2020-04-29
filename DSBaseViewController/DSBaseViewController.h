@@ -6,15 +6,7 @@
 //  Copyright © 2015 DragonSource. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-#ifndef LOG_MACRO
-    #define DDLogError(frmt, ...)   NSLog(frmt, ## __VA_ARGS__)
-    #define DDLogWarn(frmt, ...)    NSLog(frmt, ## __VA_ARGS__)
-    #define DDLogInfo(frmt, ...)    NSLog(frmt, ## __VA_ARGS__)
-    #define DDLogDebug(frmt, ...)   NSLog(frmt, ## __VA_ARGS__)
-    #define DDLogVerbose(frmt, ...) NSLog(frmt, ## __VA_ARGS__)
-#endif
+#import "DSPublicController.h"
 
 @class DSBaseViewController;
 
@@ -73,7 +65,7 @@ typedef void (^LoadViewControllerBlock)(__kindof DSBaseViewController *controlle
 
 #pragma mark - DSBaseViewController
 
-@interface DSBaseViewController : UIViewController <BuildViewDelegate>
+@interface DSBaseViewController : BASEVIEWCONTROLLER <BuildViewDelegate>
 
 @property (nonatomic, weak) id<BuildViewDelegate> buildDelegate; // defaults to the instance of itself.
 
@@ -105,37 +97,6 @@ typedef void (^LoadViewControllerBlock)(__kindof DSBaseViewController *controlle
 // Should use this as base type for children view controllers.
 typedef DSBaseViewController<BuildViewDelegate> DSBASEVIEWCONTROLLER;
 
-
-#ifdef DS_SHORTHAND
-typedef DSBaseViewController                    BaseViewController;
-typedef DSBASEVIEWCONTROLLER                    BASEVIEWCONTROLLER;
-
-/**
-   Use for easy to copy
-
- #pragma mark - BuildViewDelegate
-
-   - (void)buildSubview:(UIView *)containerView controller:(BaseViewController *)viewController
-   {
-   }
-
-   - (void)loadDataForController:(BaseViewController *)viewController
-   {
-   }
-
-   - (void)tearDown:(BaseViewController *)viewController
-   {
-   }
-
-   - (BOOL)shouldInvalidateDataForController:(BaseViewController *)viewController
-   {
-       return NO;
-   }
-
- **/
-
-#else
-
 /**
    Use for easy to copy
 
@@ -159,5 +120,3 @@ typedef DSBASEVIEWCONTROLLER                    BASEVIEWCONTROLLER;
    }
 
  **/
-
-#endif

@@ -6,6 +6,6 @@
 //  Copyright © 2016 Will Han. All rights reserved.
 //
 
-@interface MainViewController : BASEVIEWCONTROLLER
+@interface MainViewController : DSBaseViewController
 
 @end

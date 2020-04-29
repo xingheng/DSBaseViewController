@@ -91,7 +91,7 @@ InitForViewController(AddObserver(self, @selector(onNotificationReceived:)); )
 
 #pragma mark - BuildViewDelegate
 
-- (void)buildSubview:(UIView *)containerView controller:(BaseViewController *)viewController
+- (void)buildSubview:(UIView *)containerView controller:(DSBaseViewController *)viewController
 {
     // Build subviews for current view controller (viewController).
     // This delegate method should be called once durning its life cycle, just act as UIViewController.
@@ -100,17 +100,17 @@ InitForViewController(AddObserver(self, @selector(onNotificationReceived:)); )
     PostMessage([NSString stringWithFormat:@"%s", __func__]);
 }
 
-- (void)loadDataForController:(BaseViewController *)viewController
+- (void)loadDataForController:(DSBaseViewController *)viewController
 {
     PostMessage([NSString stringWithFormat:@"%s", __func__]);
 }
 
-- (void)tearDown:(BaseViewController *)viewController
+- (void)tearDown:(DSBaseViewController *)viewController
 {
     PostMessage([NSString stringWithFormat:@"%s", __func__]);
 }
 
-- (BOOL)shouldInvalidateDataForController:(BaseViewController *)viewController
+- (BOOL)shouldInvalidateDataForController:(DSBaseViewController *)viewController
 {
     PostMessage([NSString stringWithFormat:@"%s", __func__]);
     return YES;

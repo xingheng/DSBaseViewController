@@ -22,7 +22,7 @@
 
     [self setupDDLog];
 
-    [BaseViewController setupWithOptionBlock:^(__kindof DSBaseViewController *controller) {
+    [DSBaseViewController setupWithOptionBlock:^(__kindof DSBaseViewController *controller) {
         controller.view.backgroundColor = [UIColor colorWithRed:0.9f
                                                           green:0.9f
                                                            blue:0.9f

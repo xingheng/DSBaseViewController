@@ -6,10 +6,9 @@
 //  Copyright © 2015 DragonSource. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "DSBaseViewController.h"
 
-@interface BaseNavigationController : UINavigationController
+@interface BaseNavigationController : BASENAVIGATIONCONTROLLER
 
 @property (nonatomic, assign) BOOL enableInteractivePopGesture; // default is YES
 

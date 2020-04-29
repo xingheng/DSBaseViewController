@@ -6,9 +6,9 @@
 //  Copyright © 2015 DragonSource. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "DSPublicController.h"
 
-@interface BaseTabBarController : UITabBarController
+@interface BaseTabBarController : BASETABBARCONTROLLER
 
 @property (nonatomic, copy) BOOL (^ shouldSelectViewControllerBlock)(NSInteger index, UIViewController *viewController);
 

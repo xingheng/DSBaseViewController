@@ -25,25 +25,25 @@ With the *DSBaseViewController* class as super class, it externs the original me
 
 
 ``` objective-c
-- (void)buildSubview:(UIView *)containerView controller:(BaseViewController *)viewController
+- (void)buildSubview:(UIView *)containerView controller:(DSBaseViewController *)viewController
 ```
 
 *Used for build subviews for view controller.*
 
 ```objective-c
-- (void)loadDataForController:(BaseViewController *)viewController
+- (void)loadDataForController:(DSBaseViewController *)viewController
 ```
 
 *Used for load data for view controller.*
 
 ```objective-c
-- (void)tearDown:(BaseViewController *)viewController
+- (void)tearDown:(DSBaseViewController *)viewController
 ```
 
 *Used for unload data for view controller.*
 
 ```objective-c
-- (BOOL)shouldInvalidateDataForController:(BaseViewController *)viewController
+- (BOOL)shouldInvalidateDataForController:(DSBaseViewController *)viewController
 ```
 
 *Used for mark the data valid status to load data for view controller.*

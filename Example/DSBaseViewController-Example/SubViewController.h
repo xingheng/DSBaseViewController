@@ -6,7 +6,7 @@
 //  Copyright © 2016 Will Han. All rights reserved.
 //
 
-@interface SubViewController : BASEVIEWCONTROLLER
+@interface SubViewController : DSBaseViewController
 
 @property (nonatomic, assign) NSUInteger tag;
 
