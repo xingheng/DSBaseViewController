@@ -73,13 +73,6 @@ typedef void (^LoadViewControllerBlock)(__kindof DSBaseViewController *controlle
 
 @property (nonatomic, copy) AppearStateBlock appearStateBlock;
 
-@property (nonatomic, copy) AppearAnimationBlock willAppearBlock __attribute__((deprecated("Replace it with appearStateBlock instead, please!")));
-@property (nonatomic, copy) AppearAnimationBlock didAppearBlock __attribute__((deprecated("Replace it with appearStateBlock instead, please!")));
-@property (nonatomic, copy) AppearAnimationBlock willDisappearBlock __attribute__((deprecated("Replace it with appearStateBlock instead, please!")));
-@property (nonatomic, copy) AppearAnimationBlock didDisappearBlock __attribute__((deprecated("Replace it with appearStateBlock instead, please!")));
-
-+ (void)setupWithOption:(NSDictionary<DSBaseViewControllerOptionKeyType, id> *)options __attribute__((deprecated("Use setupWithOptionBlock instead, please!")));
-
 + (void)setupWithOptionBlock:(LoadViewControllerBlock)loadOptionBlock;
 
 @end

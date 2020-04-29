@@ -55,10 +55,6 @@ static LoadViewControllerBlock gLoadOptionBlock;
         self.appearStateBlock(YES, NO, animated, self);
     }
 
-    if (self.willAppearBlock) {
-        self.willAppearBlock(animated);
-    }
-
     if (self.fReceivedMemoryWarning) {
         [self _loadDataSafely];
         self.fReceivedMemoryWarning = NO;
@@ -76,10 +72,6 @@ static LoadViewControllerBlock gLoadOptionBlock;
     if (self.appearStateBlock) {
         self.appearStateBlock(YES, YES, animated, self);
     }
-
-    if (self.didAppearBlock) {
-        self.didAppearBlock(animated);
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -89,10 +81,6 @@ static LoadViewControllerBlock gLoadOptionBlock;
     if (self.appearStateBlock) {
         self.appearStateBlock(NO, NO, animated, self);
     }
-
-    if (self.willDisappearBlock) {
-        self.willDisappearBlock(animated);
-    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -101,10 +89,6 @@ static LoadViewControllerBlock gLoadOptionBlock;
 
     if (self.appearStateBlock) {
         self.appearStateBlock(NO, YES, animated, self);
-    }
-
-    if (self.didDisappearBlock) {
-        self.didDisappearBlock(animated);
     }
 
     if ([self _hasInvalidStatusData]) {
