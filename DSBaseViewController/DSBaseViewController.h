@@ -6,7 +6,7 @@
 //  Copyright © 2015 DragonSource. All rights reserved.
 //
 
-#import "DSPublicController.h"
+#import <UIKit/UIKit.h>
 
 @class DSBaseViewController;
 
@@ -65,7 +65,7 @@ typedef void (^LoadViewControllerBlock)(__kindof DSBaseViewController *controlle
 
 #pragma mark - DSBaseViewController
 
-@interface DSBaseViewController : BASEVIEWCONTROLLER <BuildViewDelegate>
+@interface DSBaseViewController : UIViewController <BuildViewDelegate>
 
 @property (nonatomic, weak) id<BuildViewDelegate> buildDelegate; // defaults to the instance of itself.
 

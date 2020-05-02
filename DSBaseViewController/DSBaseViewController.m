@@ -36,16 +36,13 @@ static LoadViewControllerBlock gLoadOptionBlock;
     if ([self.buildDelegate respondsToSelector:@selector(buildSubview:controller:)]) {
         [self.buildDelegate buildSubview:self.view controller:self];
     } else {
-        DDLogError(@"%@ doesn't comform the required delegate methods of BuildViewDelegate!", self.buildDelegate);
+        NSLog(@"%@ doesn't comform the required delegate methods of BuildViewDelegate!", self.buildDelegate);
     }
 
     if (![self _hasInvalidStatusData]) {
         [self _loadDataSafely];
     }
 }
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -96,14 +93,12 @@ static LoadViewControllerBlock gLoadOptionBlock;
     }
 }
 
-#pragma clang diagnostic pop
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 
     if (!self.visible) {
-        DDLogVerbose(@"%@ - received memory warning.", [self class]);
+        NSLog(@"%@ - received memory warning.", self);
 
         [self _unloadDataSafely];
         self.fReceivedMemoryWarning = YES;
@@ -137,7 +132,7 @@ static LoadViewControllerBlock gLoadOptionBlock;
         } else if ([key isEqualToString:DSBaseViewControllerOptionBackBarButtonImage]) {
             DSBaseViewControllerBackBarButtonImage = options[key];
         } else {
-            DDLogError(@"Unexpected option key for %@ configuration, key: %@", NSStringFromClass([self class]), key);
+            NSLog(@"Unexpected option key for %@ configuration, key: %@", NSStringFromClass([self class]), key);
         }
     }
 }

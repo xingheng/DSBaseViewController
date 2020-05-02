@@ -8,7 +8,7 @@
 
 #import "DSBaseViewController.h"
 
-@interface BaseNavigationController : BASENAVIGATIONCONTROLLER
+@interface BaseNavigationController : UINavigationController
 
 @property (nonatomic, assign) BOOL enableInteractivePopGesture; // default is YES
 
