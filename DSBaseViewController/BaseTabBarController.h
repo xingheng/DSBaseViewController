@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BaseTabBarController : UITabBarController
+@interface BaseTabBarController : UITabBarController <UITabBarControllerDelegate>
 
 @property (nonatomic, copy) BOOL (^ shouldSelectViewControllerBlock)(NSInteger index, UIViewController *viewController);
 

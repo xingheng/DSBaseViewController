@@ -19,10 +19,6 @@
 
 #pragma mark - BaseNavigationController
 
-@interface BaseNavigationController () <UINavigationControllerDelegate, UIGestureRecognizerDelegate>
-
-@end
-
 @implementation BaseNavigationController
 
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController

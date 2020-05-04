@@ -8,10 +8,6 @@
 
 #import "BaseTabBarController.h"
 
-@interface BaseTabBarController ()<UITabBarControllerDelegate>
-
-@end
-
 @implementation BaseTabBarController
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
