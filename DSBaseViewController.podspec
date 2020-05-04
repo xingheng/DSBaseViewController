@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "DSBaseViewController"
-  s.version      = "1.5.1"
+  s.version      = "1.5.2"
   s.summary      = "A serial of super view controller classes."
 
   s.description  = <<-DESC
